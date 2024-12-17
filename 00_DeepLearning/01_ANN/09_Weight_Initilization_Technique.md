@@ -169,3 +169,68 @@ This approach ensures that the variance of the activations stays constant across
 ### Conclusion:
 
 Xavier Initialization effectively ensures stable gradient propagation across deep neural networks by maintaining zero-mean activations and consistent variance across layers.
+
+# Weight Initialization Techniques in Neural Networks
+
+In this section, we will discuss different weight initialization techniques in neural networks and how they impact the training of deep learning models. The goal of weight initialization is to start the network with weights that lead to efficient convergence during training.
+
+---
+
+## 1. Weight Initialization Techniques in Neural Networks
+
+### Importance of Proper Weight Initialization:
+
+- Poor initialization can lead to **vanishing gradients** or **exploding gradients** during backpropagation, hindering model convergence.
+- Proper initialization ensures that weights start with values that are not too small or too large, allowing efficient learning during training.
+
+### Common Initialization Techniques:
+
+1. **Zero Initialization**:
+
+   - Setting all weights to zero. This can cause symmetry problems in neural networks, where all neurons in a layer learn the same features and thus become indistinguishable.
+   - Not commonly used in practice due to this limitation.
+
+2. **Random Initialization**:
+   - Weights are initialized with small random values, typically drawn from a uniform or normal distribution.
+   - Helps break symmetry, but can still result in vanishing or exploding gradients as layers become deeper.
+
+---
+
+## 2. Xavier Initialization in Neural Networks
+
+**Xavier Initialization** (also known as Glorot Initialization) is designed to keep the scale of gradients relatively stable across layers. It works well for networks using the sigmoid or tanh activation functions.
+
+### Advantages:
+
+- Suitable for shallow networks.
+- Helps maintain the variance of activations and gradients across layers.
+
+---
+
+## 3. He Initialization in Neural Networks
+
+**He Initialization** is an improvement over Xavier initialization, particularly for networks using **ReLU** or its variants. ReLU activation functions introduce sparsity, and He initialization adjusts for this by using a higher variance for weight initialization.
+
+### Advantages:
+
+- Works well with ReLU activations, preventing the issue of dying ReLUs.
+- Helps maintain a stable variance in deep networks during forward and backward propagation.
+
+---
+
+## Conclusion
+
+Choosing the right weight initialization technique is crucial for efficient neural network training.
+
+- **Xavier initialization** is suited for tanh/sigmoid activation functions, while
+- **He initialization** works better for ReLU activations, helping deep networks avoid issues like vanishing or exploding gradients.
+
+```python
+from tensorflow.keras import layers
+
+# Using the default initializer (GlorotUniform)
+layer = layers.Dense(units=64, activation='relu')
+
+# Manually setting a different initializer (HeNormal)
+layer = layers.Dense(units=64, activation='relu', kernel_initializer='he_normal')
+```
